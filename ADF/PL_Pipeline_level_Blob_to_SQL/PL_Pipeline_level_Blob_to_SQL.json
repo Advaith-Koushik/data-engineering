@@ -1,0 +1,81 @@
+{
+    "name": "PL_Pipeline_level_Blob_to_SQL",
+    "properties": {
+        "activities": [
+            {
+                "name": "Copy data from Blob to SQL",
+                "description": "This pipeline copies data from blob to Azure SQL using pipeline level parameters. ",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "DelimitedTextSource",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageReadSettings",
+                            "recursive": true,
+                            "enablePartitionDiscovery": false
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextReadSettings"
+                        }
+                    },
+                    "sink": {
+                        "type": "AzureSqlSink",
+                        "writeBehavior": "insert",
+                        "sqlWriterUseTableLock": false
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "typeConversion": true,
+                        "typeConversionSettings": {
+                            "allowDataTruncation": true,
+                            "treatBooleanAsNumber": false
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "DS_Blob_Generic_CSV",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "relativePath": {
+                                "value": "@pipeline().parameters.relative_File_name",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "DS_AzureSqlTable_Param",
+                        "type": "DatasetReference",
+                        "parameters": {
+                            "tablename": {
+                                "value": "@pipeline().parameters.Tablename",
+                                "type": "Expression"
+                            }
+                        }
+                    }
+                ]
+            }
+        ],
+        "parameters": {
+            "relative_File_name": {
+                "type": "string"
+            },
+            "Tablename": {
+                "type": "string"
+            }
+        },
+        "annotations": []
+    }
+}
