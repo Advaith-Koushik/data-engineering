@@ -1,0 +1,17 @@
+{
+    "name": "LS_AzureSqlDatabase",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureSqlDatabase",
+        "typeProperties": {
+            "server": "advaithsql.database.windows.net",
+            "database": "Advaithsqldb",
+            "encrypt": "mandatory",
+            "trustServerCertificate": false,
+            "authenticationType": "SQL",
+            "userName": "advaith",
+            "encryptedCredential": "***"
+        }
+    }
+}

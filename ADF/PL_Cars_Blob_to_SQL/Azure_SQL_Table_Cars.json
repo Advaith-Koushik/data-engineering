@@ -1,0 +1,47 @@
+{
+    "name": "Azure_SQL_Table_Cars",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "LS_AzureSqlDatabase",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureSqlTable",
+        "schema": [
+            {
+                "name": "Make",
+                "type": "varchar"
+            },
+            {
+                "name": "Model",
+                "type": "varchar"
+            },
+            {
+                "name": "Type",
+                "type": "varchar"
+            },
+            {
+                "name": "Origin",
+                "type": "varchar"
+            },
+            {
+                "name": "DriveTrain",
+                "type": "varchar"
+            },
+            {
+                "name": "Length",
+                "type": "int",
+                "precision": 10
+            },
+            {
+                "name": "Mileage",
+                "type": "int",
+                "precision": 10
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "cars"
+        }
+    }
+}
