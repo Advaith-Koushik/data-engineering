@@ -1,0 +1,28 @@
+{
+    "name": "DS_Blob_Generic_CSV",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "DS_AzureBlobStorage_param",
+            "type": "LinkedServiceReference"
+        },
+        "parameters": {
+            "relativePath": {
+                "type": "string"
+            }
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobStorageLocation",
+                "fileName": "@dataset().relativePath",
+                "container": "datasets"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": []
+    }
+}
