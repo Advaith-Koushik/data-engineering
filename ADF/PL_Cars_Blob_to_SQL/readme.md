@@ -1,7 +1,9 @@
 # 🚗 cars.csv to Azure SQL using Azure Data Factory
 
 This is a hands-on Azure Data Factory (ADF) pipeline I built to move data from a CSV file in Azure Blob Storage into a structured table in Azure SQL Database.
+
 The goal was to get practical experience with connecting source and destination systems, configuring datasets and linked services, and automating data movement with ADF. It’s a foundational project, but it covers all the core components clearly and end-to-end.
+
 The purpose was to get practical experience with connecting source and destination systems, configuring datasets and linked services, and automating data movement with ADF. It’s a foundational pipeline, but it covers all the core components clearly.
 
 ---
@@ -144,5 +146,6 @@ This project was my first step toward using ADF confidently. Next, I’m plannin
 - Implement error handling and logging
 
 ---
+
 
 Thanks for reading! Feel free to explore the JSON files or reach out if you're also learning ADF.
