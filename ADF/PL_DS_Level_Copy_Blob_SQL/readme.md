@@ -35,10 +35,10 @@ This Azure Data Factory pipeline demonstrates an efficient and reusable method f
 
 ```sql
 CREATE TABLE [dbo].[planes](
-	[ICAO] [varchar](500),
-	[IATA] [varchar](500),
-	[MAKER] [varchar](500),
-	[DESCRIPTION] [varchar](500)
+  [ICAO] [varchar](500),
+  [IATA] [varchar](500),
+  [MAKER] [varchar](500),
+  [DESCRIPTION] [varchar](500)
 )
 ```
 
@@ -46,19 +46,17 @@ CREATE TABLE [dbo].[planes](
 
 ## 🖼️ Screenshots
 
-> 📌 Replace the placeholders below with actual screenshots using relative paths like `./images/pipeline_diagram.png`.
-
 - **Pipeline Diagram**  
-  ![Pipeline Diagram](./screenshot_pipeline_diagram.png)
+  ![Pipeline Diagram](./screenshot_pipeline.png)
 
 - **Pipeline Run Monitoring**  
-  ![Monitoring View](./screenshot_pipeline_monitoring.png)
+  ![Monitoring View](./screenshot_pipeline_mon.png)
 
 - **Copy Activity Metrics Output**  
-  ![Copy Output](./screenshot_copy_activity_output.png)
+  ![Copy Output](./screenshot_copy_activity.png)
 
-- **SQL Table Result (Optional)**  
-  ![SQL Result](./screenshot_sql_query_result.png)
+- **SQL Table Result**  
+  ![SQL Result](./scr_sql_query_result.png)
 
 ---
 
@@ -89,6 +87,7 @@ I wanted to understand how to build scalable, reusable data pipelines in Azure D
 | `DS_Blob_Generic_CSV.json`      | Parameterized source dataset (CSV)               |
 | `DS_AzureSqlTable_Param.json`   | Parameterized sink dataset (SQL)                 |
 | `DS_AzureBlobStorage_param.json`| Linked service for Blob                          |
+| `tables_schema.sql`             | Planes SQL table structure                       |
 
 ---
 
@@ -96,7 +95,7 @@ I wanted to understand how to build scalable, reusable data pipelines in Azure D
 
 - Try pipeline level parametrization
 - Enable fault tolerance and retry logic for failures.
-- Automate metadata-driven ingestion using Lookup + ForEach.
+- Automate metadata-driven ingestion using Lookup + ForEach activities.
 
 ---
 
