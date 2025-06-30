@@ -2,7 +2,11 @@
 
 This is a hands-on Azure Data Factory (ADF) pipeline I built to move data from a CSV file in Azure Blob Storage into a structured table in Azure SQL Database.
 
+<<<<<<< HEAD
 The goal was to get practical experience with connecting source and destination systems, configuring datasets and linked services, and automating data movement with ADF. It’s a foundational project, but it covers all the core components clearly and end-to-end.
+=======
+The purpose was to get practical experience with connecting source and destination systems, configuring datasets and linked services, and automating data movement with ADF. It’s a foundational pipeline, but it covers all the core components clearly.
+>>>>>>> 503f8888a9d40049ef9b38257c33d8f0cd6def2a
 
 ---
 
@@ -21,7 +25,11 @@ The goal was to get practical experience with connecting source and destination 
 | `LS_AzureBlobStorage` | AzureBlobStorage  | Connects to Azure Blob Storage (source)     |
 | `LS_AzureSqlDatabase` | AzureSqlDatabase  | Connects to Azure SQL Database (destination)|
 
+<<<<<<< HEAD
 > 🔒 Credentials and connection strings have been masked in the exported JSONs.
+=======
+*Note: Credentials and connection strings have been masked.*
+>>>>>>> 503f8888a9d40049ef9b38257c33d8f0cd6def2a
 
 ---
 
@@ -32,7 +40,11 @@ The goal was to get practical experience with connecting source and destination 
 | `DS_Azure_Blob_Cars`   | DelimitedText  | Source CSV dataset from Blob Storage         |
 | `Azure_SQL_Table_Cars` | AzureSqlTable  | Target dataset for SQL table `dbo.cars`      |
 
+<<<<<<< HEAD
 The CSV includes the following columns:  
+=======
+The CSV includes these columns:  
+>>>>>>> 503f8888a9d40049ef9b38257c33d8f0cd6def2a
 `Make`, `Model`, `Type`, `Origin`, `DriveTrain`, `Length`, `Mileage`
 
 ---
@@ -51,6 +63,7 @@ CREATE TABLE dbo.cars (
     Length INT,
     Mileage INT
 );
+<<<<<<< HEAD
 ```
 
 ---
@@ -145,3 +158,5 @@ This project was my first step toward using ADF confidently. Next, I’m plannin
 ---
 
 Thanks for reading! Feel free to explore the JSON files or reach out if you're also learning ADF.
+=======
+>>>>>>> 503f8888a9d40049ef9b38257c33d8f0cd6def2a
