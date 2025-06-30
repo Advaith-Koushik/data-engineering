@@ -60,9 +60,9 @@ Each file represents full data extract from the corresponding Azure SQL table.
 ## 🖼️ Screenshots
 
 
-- ![Diagram of Azure Data Factory pipeline with monitor view.](./screenshots/pipeline_lkpforeach.png)
+- ![Diagram of Azure Data Factory pipeline with monitor view.](./pipeline_lkpforeach.png)
 
-- ![Azure Storage browser interface listing the three exported CSV files.](./screenshots/scr_blob_storage.png)
+- ![Azure Storage browser interface listing the three exported CSV files.](./scr_blob_storage.png)
 
 ---
 
