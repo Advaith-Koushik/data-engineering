@@ -46,11 +46,19 @@ This Azure Data Factory (ADF) pipeline automates the ingestion of multiple CSV f
 
 ## 🖼️ Screenshots
 
+Pipeline Diagram with successful execution:
+
 - ![Pipeline Diagram with successful execution](./pipeline_sql_bulk_diagram.png)
+
+Input files in `datasets/test` in the storage account:
 
 - ![Input files in `datasets/test`](./files_in_sa.png)
 
+List of output SQL tables created. Each table corresponds to the file name (without `.csv`) and contains the CSV data.
+
 - ![Expected output SQL tables created:](./sql_table_op.png)
+
+SQL Table data preview for planes_1 table:
 
 - ![SQL Table data preview. Each table corresponds to the file name (without `.csv`) and contains the CSV data.](./sql_table_op2.png)
 
