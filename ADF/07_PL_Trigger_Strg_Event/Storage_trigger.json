@@ -1,0 +1,28 @@
+{
+    "name": "Storage_Trigger",
+    "properties": {
+        "annotations": [],
+        "runtimeState": "Started",
+        "pipelines": [
+            {
+                "pipelineReference": {
+                    "referenceName": "PL_Trigger_Strg_Event",
+                    "type": "PipelineReference"
+                },
+                "parameters": {
+                    "Filename": "@triggerBody().FileName"
+                }
+            }
+        ],
+        "type": "BlobEventsTrigger",
+        "typeProperties": {
+            "blobPathBeginsWith": "/datasets/blobs/test/",
+            "blobPathEndsWith": ".csv",
+            "ignoreEmptyBlobs": true,
+            "scope": "/subscriptions/***/resourceGroups/rg_study/providers/Microsoft.Storage/storageAccounts/sastudyblob",
+            "events": [
+                "Microsoft.Storage.BlobCreated"
+            ]
+        }
+    }
+}
