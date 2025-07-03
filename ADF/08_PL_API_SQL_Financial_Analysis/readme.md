@@ -27,8 +27,8 @@ This data is copied into a SQL table `dbo.financialsummary`, and a stored proced
 2. **Get Metadata** – Verifies if the target table (`financialsummary`) exists.
 3. **If Condition** – If table exists, a stored procedure is executed for further processing.
 
-📸 **Screenshot to take:**  
-Take a snapshot of the entire pipeline in ADF showing all 3 activities (Copy → Get Metadata → If Condition).
+**Entire pipeline view with monitor output**
+![Entire Pipeline](./scr_pipeline.png)
 
 ---
 
@@ -39,9 +39,8 @@ Take a snapshot of the entire pipeline in ADF showing all 3 activities (Copy →
 - Relative URL:  
   `Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2023-financial-year-provisional/Download-data/annual-enterprise-survey-2023-financial-year-provisional.csv`
 
-📸 **Screenshot to take:**  
-Open this dataset in ADF and take a screenshot of the "Connection" tab showing the relative URL and linked service name.
-
+**DS_API_CSV**
+![DS_API_CSV](./scr_ds_api_csv.png)
 ---
 
 ### 🗃️ Sink Dataset: `DS_SQL_AutoTable`
@@ -49,8 +48,15 @@ Open this dataset in ADF and take a screenshot of the "Connection" tab showing t
 - Table name passed as parameter
 - Target table: `dbo.financialsummary`
 
-📸 **Screenshot to take:**  
-Open this dataset and take a screenshot of the parameter configuration (`Tablename`) and the dynamic table binding.
+---
+## 📌 Execution Logic
+
+- Table creation is handled automatically using ADF's `autoCreate` option in the SQL Sink.
+- A `preCopyScript` is used to drop `financialsummary` if it already exists.
+- The `Get Metadata` activity checks table existence and only triggers post-processing if present.
+
+**DS_SQL_AutoTable**
+![DS_SQL_AutoTable](./scr_ds_sql.png)
 
 ---
 
@@ -87,20 +93,9 @@ END;
 ```
 
 This aggregates financial data by industry and indicator into a clean summary format.
-
-📸 **Screenshot to take:**  
-Take a screenshot of this stored procedure script in SSMS or Data Studio for documentation.
-
 ---
 
-## 📌 Execution Logic
 
-- Table creation is handled automatically using ADF's `autoCreate` option in the SQL Sink.
-- A `preCopyScript` is used to drop `financialsummary` if it already exists.
-- The `Get Metadata` activity checks table existence and only triggers post-processing if present.
-
-📸 **Screenshot to take:**  
-Screenshot the Copy Activity settings showing `preCopyScript` and `autoCreate` options.
 
 ---
 
@@ -108,10 +103,11 @@ Screenshot the Copy Activity settings showing `preCopyScript` and `autoCreate` o
 
 | File | Description |
 |------|-------------|
-| `PL_API_SQL_Financial_Analysis.json` | ADF pipeline definition |
-| `DS_API_CSV.json` | Source dataset pointing to public CSV |
-| `DS_SQL_AutoTable.json` | Sink dataset with dynamic table binding |
-| `README.md` | This file |
+| `PL_API_SQL_Financial_Analysis.json`  | ADF pipeline definition |
+| `DS_API_CSV.json`                     | Source dataset pointing to public CSV |
+| `DS_SQL_AutoTable.json`               | Sink dataset with dynamic table binding |
+| `README.md`                           | This file |
+| `scr_*`                               | Screenshots mentioned in this file |
 
 ---
 
@@ -123,25 +119,8 @@ Screenshot the Copy Activity settings showing `preCopyScript` and `autoCreate` o
 
 ---
 
-## 🏁 Output Example
+## 🏁 Output Table
 
-Final SQL Table: `dbo.annual_reporting`
+**Final SQL Table: `dbo.annual_reporting` queried in ssms:**
 
-| Industry            | Indicator         | Value     |
-|---------------------|-------------------|-----------|
-| Retail Trade        | Total Income      | 123456.78 |
-| Manufacturing       | Gross Profit      | 987654.32 |
-
----
-
-## 🔧 TODO
-
-- Add error handling and retries for Copy activity
-- Parameterize year or file path for dynamic ingestion
-- Schedule using trigger for automation
-
----
-
-## 📬 Contact
-
-If you have questions or improvements, feel free to open an issue or pull request.
+![dbo.annual_reporting](./scr_op_sql_table.png)
