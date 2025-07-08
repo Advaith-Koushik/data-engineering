@@ -1,0 +1,75 @@
+{
+    "name": "DF_Cleaned_Movies",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "DS_DF_Movies",
+                        "type": "DatasetReference"
+                    },
+                    "name": "source1"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "DS_Blob_DF_OP",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sink1"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "DS_DF_Movies_Cleaned",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sink2"
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "derivedColumn1"
+                },
+                {
+                    "name": "aggregate1"
+                }
+            ],
+            "scriptLines": [
+                "source(output(",
+                "          movieId as string,",
+                "          title as string,",
+                "          genres as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> source1",
+                "source1 derive(title = left(title,length(title)-6),",
+                "          year = trim(right(title,6),'()')) ~> derivedColumn1",
+                "derivedColumn1 aggregate(groupBy(year),",
+                "     no_of_movies = count(title)) ~> aggregate1",
+                "derivedColumn1 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     filePattern:'Cleaned_movies',",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true,",
+                "     partitionBy('hash', 4,",
+                "          title",
+                "     )) ~> sink1",
+                "aggregate1 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     input(",
+                "          COUNTRY as string,",
+                "          {CURRENCY CODE} as string,",
+                "          {AVERAGE ANNUAL SALARY (WOMEN) USD} as string,",
+                "          {AVERAGE ANNUAL SALARY (MEN) USD} as string,",
+                "          No as string",
+                "     ),",
+                "     filePattern:'No_of_Movies_per_Year',",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> sink2"
+            ]
+        }
+    }
+}
