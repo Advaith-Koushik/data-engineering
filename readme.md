@@ -13,7 +13,7 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 |---------------|------------------------------------------------------------------|
 | `ADF/`        | Projects built using Azure Data Factory pipelines                |
 | `SQL/`        | Data manipulation and cleaning projects using SQL                |
-| `Databricks/` | (Coming soon) Projects involving notebooks, Delta Lake, PySpark  |
+| `Databricks/` | Projects involving notebooks, Delta Lake, PySpark  |
 
 ---
 
@@ -32,6 +32,17 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 | [`ADF/07_PL_Trigger_Strg_Event`](./ADF/07_PL_Trigger_Strg_Event)       | Trigger pipeline based on new file event in Storage    |
 
 ### 🧮 SQL Projects
+### ⚡ Databricks Notebooks
+
+| Project Folder                                   | Description                                                                 |
+|--------------------------------------------------|-----------------------------------------------------------------------------|
+| [`Databricks/Delta_Lake`](./Databricks/Delta_Lake)             | Demonstrates Delta table creation, time travel, and vacuum using Scala and SQL |
+| [`Databricks/JDBC_Connection`](./Databricks/JDBC_Connection)   | Read from Azure SQL DB using JDBC in PySpark                                |
+| [`Databricks/Mini_Project`](./Databricks/Mini_Project)         | Simple ETL pipeline using Spark SQL and ADLS write                          |
+| [`Databricks/ADLS_SP_Mounting`](./Databricks/ADLS_SP_Mounting) | Mounting ADLS using SPN authentication and secret scopes (Scala-based)     |
+
+> 📌 **Note**: These notebooks include both **Scala and Python** code and were developed inside **Azure Databricks Standard Tier**. Secrets were managed via `databricks-cli` and stored in a Databricks-managed secret scope due to lack of Premium-tier integration.
+
 
 | Project Folder                             | Description                              |
 |--------------------------------------------|------------------------------------------|
