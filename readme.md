@@ -9,11 +9,12 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 
 ## 📁 Folder Structure
 
-| Folder        | Description                                                      |
-|---------------|------------------------------------------------------------------|
-| `ADF/`        | Projects built using Azure Data Factory pipelines                |
-| `SQL/`        | Data manipulation and cleaning projects using SQL                |
-| `Databricks/` | Projects involving notebooks, Delta Lake, PySpark  |
+| Folder                  | Description                                                      |
+|-------------------------|------------------------------------------------------------------|
+| `ADF/`                  | Projects built using Azure Data Factory pipelines                |
+| `SQL/`                  | Data manipulation and cleaning projects using SQL                |
+| `Databricks/`           | Projects involving notebooks, Delta Lake, PySpark                |
+| `Medallion_Architecture/`| Full-stack ADF + Databricks medallion architecture (Bronze→Gold) |
 
 ---
 
@@ -35,6 +36,7 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 | [`ADF/10_DF_Movie_Cleaning`](./ADF/10_DF_Movie_Cleaning)                         | Two dataflows cleaning & transforming raw movie data                 |
 
 ---
+
 ### 🧮 SQL Projects
 
 | Project Folder                             | Description                              |
@@ -42,6 +44,7 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 | [`SQL/Data_cleaning_project`](./SQL/Data_cleaning_project) | Clean and transform messy data using SQL best practices |
 
 ---
+
 ### ⚡ Databricks Notebooks
 
 | Project Folder                                   | Description                                                                 |
@@ -51,7 +54,13 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 | [`Databricks/Mini_Project`](./Databricks/Mini_Project)         | Simple ETL pipeline using Spark SQL and ADLS write                          |
 | [`Databricks/ADLS_SP_Mounting`](./Databricks/ADLS_SP_Mounting) | Mounting ADLS using SPN authentication and secret scopes (Scala-based)     |
 
-> 📌 **Note**: These notebooks include both **Scala and Python** code and were developed inside **Azure Databricks Standard Tier**. Secrets were managed via `databricks-cli` and stored in a Databricks-managed secret scope due to lack of Premium-tier integration.
+---
+
+### 🏗️ Medallion Architecture (ADF + Databricks)
+
+| Project Folder                                         | Description                                                                                     |
+|--------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| [`Medallion_Architecture`](./Medallion_Architecture)     | End-to-end project demonstrating Bronze → Silver → Gold layer architecture using ADF + Databricks. Includes Azure SQL source, ADLS containers, parameterized ADF pipeline, and Delta-based transformations via Databricks notebooks. |
 
 ---
 
