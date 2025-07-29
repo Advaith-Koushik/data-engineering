@@ -1,5 +1,5 @@
 
-# 🛠️ Data Engineering Portfolio
+# 🛠️ Data Engineering
 
 Welcome to my data engineering portfolio! This repository showcases hands-on projects and learning exercises I've built while transitioning from an ETL Developer to a Data Engineer.
 
