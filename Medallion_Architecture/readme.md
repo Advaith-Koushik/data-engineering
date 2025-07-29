@@ -48,7 +48,7 @@ A **ForEach** activity in ADF iterates over the table metadata and performs a **
 ### ⚙️ Step 3: Databricks Setup – Mounting Containers
 Before transformations, we create mount points in Databricks to access ADLS containers `/mnt/bronze`, `/mnt/silver`, `/mnt/gold`.
 
-📓 Notebook: [`SetupLayers.ipynb`](./Images/SetupLayers.ipynb)
+📓 Notebook: [`SetupLayers.ipynb`](./Notebook%20Files/SetupLayers.ipynb)
 - Uses `dbutils.fs.mount()` with databricks maintained secrets
 - Handles SAS token authentication for each layer.
 
@@ -65,7 +65,7 @@ dbutils.fs.mount(
 ---
 
 ### 🧪 Step 4: Bronze to Silver – Cleansing & Delta Conversion
-📓 Notebook: [`BronzetoSilver.ipynb`](./Images/BronzetoSilver.ipynb)
+📓 Notebook: [`BronzetoSilver.ipynb`](./Notebook%20Files/BronzetoSilver.ipynb)
 
 This notebook reads all Parquet files from the Bronze layer and performs the following:
 - Drops nulls and unnecessary columns
@@ -83,7 +83,7 @@ df_cleaned.write.format("delta").mode("overwrite").save("/mnt/silver/Customer")
 ---
 
 ### 🏅 Step 5: Silver to Gold – Business Logic & Aggregations
-📓 Notebook: [`SilvertoGold.ipynb`](./Images/SilvertoGold.ipynb)
+📓 Notebook: [`SilvertoGold.ipynb`](./Notebook%20Files/SilvertoGold.ipynb)
 
 Final transformations are applied:
 - Joins between Customer, SalesOrderHeader, and SalesOrderDetail
