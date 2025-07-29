@@ -28,7 +28,7 @@ WHERE s.name = 'SalesLT'
 
 This retrieves all tables under `SalesLT` and stores their metadata as input for looping.
 **SQL Output**
-![SQL Output from SSMS](./Sql_initial_op.png)
+![SQL Output from SSMS](./Images/Sql_initial_op.png)
 
 
 ---
@@ -40,7 +40,7 @@ A **ForEach** activity in ADF iterates over the table metadata and performs a **
 - Format: **Parquet**
 
 **Bronze Layer Files stored at ADLS location**
-![ADLS Bronze layer file Output from Azure storage browser](./Files_copied_to_ADLS_bronze.png)
+![ADLS Bronze layer file Output from Azure storage browser](./Images/Files_copied_to_ADLS_bronze.png)
 
 
 ---
@@ -48,7 +48,7 @@ A **ForEach** activity in ADF iterates over the table metadata and performs a **
 ### ⚙️ Step 3: Databricks Setup – Mounting Containers
 Before transformations, we create mount points in Databricks to access ADLS containers `/mnt/bronze`, `/mnt/silver`, `/mnt/gold`.
 
-📓 Notebook: [`SetupLayers.ipynb`](./SetupLayers.ipynb)
+📓 Notebook: [`SetupLayers.ipynb`](./Images/SetupLayers.ipynb)
 - Uses `dbutils.fs.mount()` with databricks maintained secrets
 - Handles SAS token authentication for each layer.
 
@@ -65,7 +65,7 @@ dbutils.fs.mount(
 ---
 
 ### 🧪 Step 4: Bronze to Silver – Cleansing & Delta Conversion
-📓 Notebook: [`BronzetoSilver.ipynb`](./BronzetoSilver.ipynb)
+📓 Notebook: [`BronzetoSilver.ipynb`](./Images/BronzetoSilver.ipynb)
 
 This notebook reads all Parquet files from the Bronze layer and performs the following:
 - Drops nulls and unnecessary columns
@@ -78,12 +78,12 @@ df_cleaned.write.format("delta").mode("overwrite").save("/mnt/silver/Customer")
 ```
 
 **Silver Layer Files stored at ADLS location**
-![ADLS Silver layer file Output from Azure storage browser](./Silver_files_delta.png)
+![ADLS Silver layer file Output from Azure storage browser](./Images/Silver_files_delta.png)
 
 ---
 
 ### 🏅 Step 5: Silver to Gold – Business Logic & Aggregations
-📓 Notebook: [`SilvertoGold.ipynb`](./SilvertoGold.ipynb)
+📓 Notebook: [`SilvertoGold.ipynb`](./Images/SilvertoGold.ipynb)
 
 Final transformations are applied:
 - Joins between Customer, SalesOrderHeader, and SalesOrderDetail
@@ -97,7 +97,7 @@ agg.write.format("delta").mode("overwrite").save("/mnt/gold/CustomerRevenue")
 ```
 
 **Gold Layer Files stored at ADLS location**
-![ADLS Gold layer file Output from Azure storage browser](./gold_files_delta.png)
+![ADLS Gold layer file Output from Azure storage browser](./Images/gold_files_delta.png)
 
 ---
 
@@ -112,22 +112,24 @@ agg.write.format("delta").mode("overwrite").save("/mnt/gold/CustomerRevenue")
 | Silver to Gold      | Databricks Notebook | Triggers `SilvertoGold` notebook                    |
 
 **Full ADF pipeline with Pipeline run**
-![PL_Medallion from ADF](./PL_Medallion_with_op.png)
+![PL_Medallion from ADF](./Images/PL_Medallion_with_op.png)
 
 **Databricks Notebook run output**
-![Databricks notebook runs](./databricks_run_op.png)
+![Databricks notebook runs](./Images/databricks_run_op.png)
 ---
 
 ## 📂 Project File Structure
 
 ```plaintext
-.
-├── PL_Medallion.json              # ADF pipeline orchestration
-├── SetupLayers.ipynb              # Mounting ADLS containers in Databricks
-├── BronzetoSilver.ipynb           # Cleansing and Delta transformation
-├── SilvertoGold.ipynb             # Business logic and aggregations
-├── README.md                      # Project overview and documentation
-├── *.png                          # Project screenshot files
+
+├── Images/                        # Contains screenshots of ADLS containers and ADF pipeline run
+├── Notebook Files/               # Databricks notebooks for Setup, Bronze→Silver, Silver→Gold
+│   ├── SetupLayers.ipynb
+│   ├── BronzetoSilver.ipynb
+│   └── SilvertoGold.ipynb
+├── PL_Medallion.json             # ADF pipeline orchestration (Lookup → Copy → Notebooks)
+├── readme.md                     # Project overview and documentation
+
 ```
 
 ---
