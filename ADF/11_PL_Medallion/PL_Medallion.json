@@ -1,0 +1,181 @@
+{
+    "name": "PL_Medallion",
+    "properties": {
+        "activities": [
+            {
+                "name": "Get tables from ADW DB",
+                "type": "Lookup",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "AzureSqlSource",
+                        "sqlReaderQuery": "select t.name as TableName, s.name as SchemaName from sys.tables t inner join sys.schemas s on t.schema_id = s.schema_id where s.name ='SalesLT'",
+                        "queryTimeout": "02:00:00",
+                        "partitionOption": "None"
+                    },
+                    "dataset": {
+                        "referenceName": "DS_AdventureWorks",
+                        "type": "DatasetReference"
+                    },
+                    "firstRowOnly": false
+                }
+            },
+            {
+                "name": "For Each table Copy to ADLS",
+                "type": "ForEach",
+                "dependsOn": [
+                    {
+                        "activity": "Get tables from ADW DB",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@activity('Get tables from ADW DB').output.value",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Copy data from SQL to ADLS",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "AzureSqlSource",
+                                    "queryTimeout": "02:00:00",
+                                    "partitionOption": "None"
+                                },
+                                "sink": {
+                                    "type": "ParquetSink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSWriteSettings"
+                                    },
+                                    "formatSettings": {
+                                        "type": "ParquetWriteSettings"
+                                    }
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "DS_Adventureworks_generic",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "Schemaname": {
+                                            "value": "@item().SchemaName",
+                                            "type": "Expression"
+                                        },
+                                        "Tablename": {
+                                            "value": "@item().TableName",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "DS_ADLS_Parquet",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "Schemaname": {
+                                            "value": "@item().SchemaName",
+                                            "type": "Expression"
+                                        },
+                                        "Tablename": {
+                                            "value": "@item().TableName",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "Bronze to Silver",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "For Each table Copy to ADLS",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/advai97@gmail.com/Advaith/Medallion/BronzetoSilver"
+                },
+                "linkedServiceName": {
+                    "referenceName": "DS_ADB",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "Silver to Gold",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Bronze to Silver",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/advai97@gmail.com/Advaith/Medallion/SilvertoGold"
+                },
+                "linkedServiceName": {
+                    "referenceName": "DS_ADB",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2025-07-24T19:45:38Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
