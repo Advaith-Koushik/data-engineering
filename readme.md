@@ -32,8 +32,8 @@ I’m focused on mastering modern data tools like **Azure Data Factory**, **SQL*
 | [`ADF/06_PL_Monitor_logging`](./ADF/06_PL_Monitor_logging)             | Pipeline demonstrating error handling and logging      |
 | [`ADF/07_PL_Trigger_Strg_Event`](./ADF/07_PL_Trigger_Strg_Event)       | Trigger pipeline based on new file event in Storage    |
 | [`ADF/08_PL_API_SQL_Financial_Analysis`](./ADF/08_PL_API_SQL_Financial_Analysis) | Ingest CSV data from API into SQL with auto schema + post-processing |
-| [`ADF/09_PL_Incremental_Lahman`](./ADF/09_PL_Incremental_Lahman)                 | Metadata-driven incremental load using watermark on Lahman dataset   |
-| [`ADF/10_DF_Movie_Cleaning`](./ADF/10_DF_Movie_Cleaning)                         | Two dataflows cleaning & transforming raw movie data                 |
+| [`ADF/09_PL_Incremental_load`](./ADF/09_PL_Incremental_load)                 | Metadata-driven incremental load using watermark on Lahman dataset   |
+| [`ADF/10_PL_Dataflows`](./ADF/10_PL_Dataflows)                         | Two dataflows cleaning & transforming raw movie data                 |
 
 ---
 
